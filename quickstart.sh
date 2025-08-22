@@ -20,7 +20,7 @@ installPackages(){
 
 setupLive() {
     #Live image-specific packages
-    sudo apt install testdisk gparted btrfs-progs exfatprogs f2fs-tools dosfstools jfsutils mdadm ntfs-3g lvm2 nilfs-utils 
+    sudo apt install testdisk gparted btrfs-progs exfatprogs f2fs-tools dosfstools jfsutils mdadm ntfs-3g lvm2 nilfs-tools 
 }
 
 
