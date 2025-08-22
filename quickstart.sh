@@ -18,6 +18,12 @@ installPackages(){
     clear
 }
 
+setupLive() {
+    #Live image-specific packages
+    sudo apt install testdisk gparted btrfs-progs exfatprogs f2fs-tools dosfstools jfsutils mdadm ntfs-3g lvm2 nilfs-utils 
+}
+
+
 setupFlatpak(){
     flatpak remote-add --if-not-exists --user flathub https://flathub.org/repo/flathub.flatpakrepo | tee -a obqss-setup.log
     clear
@@ -38,5 +44,5 @@ gitSetup(){
     clear
 }
 
-updateSystem && installPackages && setupFlatpak && gitSetup && echo "Process has been completed. Feel free to check obqss-setup.log."
+updateSystem && installPackages && setupLive && setupFlatpak && gitSetup && echo "Process has been completed. Feel free to check obqss-setup.log."
 read -n 1 -s -r -p "Press any key to continue..."
