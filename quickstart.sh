@@ -45,7 +45,7 @@ gitSetup(){
 }
 
 finish(){
-    sudo cp -r /root/* /etc/skel | tee -a obqss-setup.log
+    sudo cp -r ~/* /etc/skel | tee -a obqss-setup.log
     sudo cp Desktop/* /etc/skel/Desktop | tee -a obqss-setup.log
     clear
 }
