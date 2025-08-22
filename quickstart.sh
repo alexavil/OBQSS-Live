@@ -25,11 +25,11 @@ setupFlatpak(){
 
 gitSetup(){
     git clone https://github.com/dglava/arc-openbox | tee -a obqss-setup.log
-    mkdir ~/.themes | tee -a obqss-setup.log
-    mkdir ~/.config | tee -a obqss-setup.log
-    cp -r config/* ~/.config | tee -a obqss-setup.log
-    cp .gtkrc-2.0 ~/ | tee -a obqss-setup.log
-    cp -r arc-openbox/* ~/.themes | tee -a obqss-setup.log
+    mkdir /etc/skel/.themes | tee -a obqss-setup.log
+    mkdir /etc/skel/.config | tee -a obqss-setup.log
+    cp -r config/* /etc/skel/.config | tee -a obqss-setup.log
+    cp .gtkrc-2.0 /etc/skel | tee -a obqss-setup.log
+    cp -r arc-openbox/* /etc/skel/.themes | tee -a obqss-setup.log
     rm -rf arc-openbox | tee -a obqss-setup.log
     sudo cp -r shared /home/ | tee -a obqss-setup.log
     sudo cp -r config /home/shared | tee -a obqss-setup.log
