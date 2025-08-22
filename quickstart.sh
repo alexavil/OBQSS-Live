@@ -50,5 +50,5 @@ finish(){
     clear
 }
 
-updateSystem && installPackages && setupLive && setupFlatpak && gitSetup && echo "Process has been completed. Feel free to check obqss-setup.log."
+updateSystem && installPackages && setupLive && setupFlatpak && gitSetup && finish && echo "Process has been completed. Feel free to check obqss-setup.log."
 read -n 1 -s -r -p "Press any key to continue..."
