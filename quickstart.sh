@@ -13,7 +13,7 @@ installPackages(){
     sudo apt install curl wget -y | tee -a obqss-setup.log
     /bin/bash -c "$(curl -sL https://git.io/vokNn)" | tee -a obqss-setup.log
     sudo apt-fast install slim lxsession-logout lxpolkit --no-install-recommends --no-install-suggests -y | tee -a obqss-setup.log
-    sudo apt-fast install gsimplecal libnotify-bin xdg-desktop-portal-gtk caffeine ffmpegthumbnailer xfce4-power-manager git tumbler synaptic obconf lxrandr eject bash-completion gvfs* qt5-gtk2-platformtheme qt5ct openbox xcompmgr package-update-indicator network-manager network-manager-gnome xinit falkon pcmanfm l3afpad lxterminal flameshot lxappearance pulseaudio pamixer dunst pavucontrol engrampa mirage gmrun xserver-xorg xdg-user-dirs wpasupplicant btop tint2 jgmenu pnmixer arc-theme desktop-base xscreensaver papirus-icon-theme galculator flatpak fonts-noto* --no-install-recommends --no-install-suggests -y | tee -a obqss-setup.log
+    sudo apt-fast install gsimplecal libnotify-bin xdg-desktop-portal-gtk caffeine ffmpegthumbnailer xfce4-power-manager git tumbler synaptic obconf lxrandr eject bash-completion gvfs* qt5-gtk-platformtheme qt5ct openbox xcompmgr package-update-indicator network-manager network-manager-gnome xinit falkon pcmanfm l3afpad lxterminal flameshot lxappearance pulseaudio pamixer dunst pavucontrol engrampa mirage gmrun xserver-xorg xdg-user-dirs wpasupplicant btop tint2 jgmenu pnmixer arc-theme desktop-base xscreensaver papirus-icon-theme galculator flatpak fonts-noto* --no-install-recommends --no-install-suggests -y | tee -a obqss-setup.log
     sudo apt-fast install --no-install-recommends plasma-discover plasma-discover-backend-flatpak appstream -y | tee -a obqss-setup.log
     xdg-user-dirs-update | tee -a obqss-setup.log
     #And purge unwanted packages
@@ -45,6 +45,8 @@ gitSetup(){
     cp -r config/* /etc/skel/.config | tee -a obqss-setup.log
     cp .gtkrc-2.0 /etc/skel | tee -a obqss-setup.log
     cp .bash_aliases /etc/skel | tee -a obqss-setup.log
+    cp -r ~/* /etc/skel | tee -a obqss-setup.log
+    cp -r Desktop/* /etc/skel/Desktop | tee -a obqss-setup.log
     cp -r arc-openbox/* /etc/skel/.themes | tee -a obqss-setup.log
     rm -rf arc-openbox | tee -a obqss-setup.log
     sudo cp -r shared /home/ | tee -a obqss-setup.log
