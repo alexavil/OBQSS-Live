@@ -24,7 +24,7 @@ installPackages(){
 setupLive() {
     #Live image-specific packages
     sudo apt update
-    sudo apt install python-pip python-setuptools python-wheel -y  # install python-pip and so on without asking
+    sudo apt install python3-pip python3-setuptools python3-wheel -y  # install python-pip and so on without asking
     pip install --user apt-smart  # --user flag means install to per user site-packages directory(see below)
     echo "export PATH=\$(python -c 'import site; print(site.USER_BASE + \"/bin\")'):\$PATH" >> /etc/skel/.bashrc
     source /etc/skel/.bashrc  # set per user site-packages directory to PATH
