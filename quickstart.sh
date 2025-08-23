@@ -45,10 +45,10 @@ gitSetup(){
 }
 
 finish(){
-    sudo cp -r /root/* /etc/skel | tee -a obqss-setup.log
+    sudo cp -r ~/* /etc/skel | tee -a obqss-setup.log
     sudo cp Desktop/* /etc/skel/Desktop | tee -a obqss-setup.log
     clear
 }
 
-updateSystem && installPackages && setupLive && setupFlatpak && gitSetup && echo "Process has been completed. Feel free to check obqss-setup.log."
+updateSystem && installPackages && setupLive && setupFlatpak && gitSetup && finish && echo "Process has been completed. Feel free to check obqss-setup.log."
 read -n 1 -s -r -p "Press any key to continue..."
