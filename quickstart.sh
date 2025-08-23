@@ -2,25 +2,34 @@
 
 #Update the system before installing anything, saves you the hedache afterwards...
 updateSystem(){
-    sudo apt upgrade | tee -a obqss-setup.log
+    sudo apt update | tee -a obqss-setup.log
+    sudo apt upgrade -y | tee -a obqss-setup.log
     clear
 }
 
 installPackages(){
     #TODO: Find Alternatives to lxsession-logout that work on openbox and don't depend on systemd.
     #Installing policykit-1-gnome first, then lxsession-logout should fix problems with devuan...
-    sudo apt install slim lxsession-logout lxpolkit --no-install-recommends --no-install-suggests -y | tee -a obqss-setup.log
-    sudo apt install gsimplecal libnotify-bin xdg-desktop-portal-gtk caffeine ffmpegthumbnailer xfce4-power-manager git tumbler synaptic obconf lxrandr eject bash-completion gvfs* qt5-gtk-platformtheme qt5ct openbox xcompmgr package-update-indicator network-manager network-manager-gnome xinit falkon pcmanfm l3afpad lxterminal flameshot lxappearance pulseaudio pamixer dunst pavucontrol engrampa mirage gmrun xserver-xorg xdg-user-dirs wpasupplicant btop tint2 jgmenu pnmixer arc-theme desktop-base xscreensaver papirus-icon-theme galculator flatpak fonts-noto* --no-install-recommends --no-install-suggests -y | tee -a obqss-setup.log
-    sudo apt install --no-install-recommends plasma-discover plasma-discover-backend-flatpak appstream -y | tee -a obqss-setup.log
+    sudo apt install curl wget -y | tee -a obqss-setup.log
+    /bin/bash -c "$(curl -sL https://git.io/vokNn)" | tee -a obqss-setup.log
+    sudo apt-fast install slim lxsession-logout lxpolkit --no-install-recommends --no-install-suggests -y | tee -a obqss-setup.log
+    sudo apt-fast install gsimplecal libnotify-bin xdg-desktop-portal-gtk caffeine ffmpegthumbnailer xfce4-power-manager git tumbler synaptic obconf lxrandr eject bash-completion gvfs* qt5-gtk2-platformtheme qt5ct openbox xcompmgr package-update-indicator network-manager network-manager-gnome xinit falkon pcmanfm l3afpad lxterminal flameshot lxappearance pulseaudio pamixer dunst pavucontrol engrampa mirage gmrun xserver-xorg xdg-user-dirs wpasupplicant btop tint2 jgmenu pnmixer arc-theme desktop-base xscreensaver papirus-icon-theme galculator flatpak fonts-noto* --no-install-recommends --no-install-suggests -y | tee -a obqss-setup.log
+    sudo apt-fast install --no-install-recommends plasma-discover plasma-discover-backend-flatpak appstream -y | tee -a obqss-setup.log
     xdg-user-dirs-update | tee -a obqss-setup.log
     #And purge unwanted packages
-    sudo apt purge --auto-remove unattended-upgrades snapd plasma-discover-backend-snap -y | tee -a obqss-setup.log
+    sudo apt-fast purge --auto-remove unattended-upgrades snapd plasma-discover-backend-snap -y | tee -a obqss-setup.log
     clear
 }
 
 setupLive() {
     #Live image-specific packages
-    sudo apt install testdisk extundelete gparted btrfs-progs exfatprogs f2fs-tools dosfstools jfsutils mdadm ntfs-3g lvm2 nilfs-tools 
+    sudo apt update
+    sudo apt install python-pip python-setuptools python-wheel -y  # install python-pip and so on without asking
+    pip install --user apt-smart  # --user flag means install to per user site-packages directory(see below)
+    echo "export PATH=\$(python -c 'import site; print(site.USER_BASE + \"/bin\")'):\$PATH" >> /etc/skel/.bashrc
+    source /etc/skel/.bashrc  # set per user site-packages directory to PATH
+    sudo apt-fast install testdisk extundelete gparted btrfs-progs exfatprogs f2fs-tools dosfstools jfsutils mdadm ntfs-3g lvm2 nilfs-tools -y | tee -a obqss-setup.log
+    clear
 }
 
 
@@ -35,6 +44,7 @@ gitSetup(){
     mkdir /etc/skel/.config | tee -a obqss-setup.log
     cp -r config/* /etc/skel/.config | tee -a obqss-setup.log
     cp .gtkrc-2.0 /etc/skel | tee -a obqss-setup.log
+    cp .bash_aliases /etc/skel | tee -a obqss-setup.log
     cp -r arc-openbox/* /etc/skel/.themes | tee -a obqss-setup.log
     rm -rf arc-openbox | tee -a obqss-setup.log
     sudo cp -r shared /home/ | tee -a obqss-setup.log
@@ -44,11 +54,5 @@ gitSetup(){
     clear
 }
 
-finish(){
-    sudo cp -r ~/* /etc/skel | tee -a obqss-setup.log
-    sudo cp Desktop/* /etc/skel/Desktop | tee -a obqss-setup.log
-    clear
-}
-
-updateSystem && installPackages && setupLive && setupFlatpak && gitSetup && finish && echo "Process has been completed. Feel free to check obqss-setup.log."
+updateSystem && installPackages && setupLive && setupFlatpak && gitSetup && echo "Process has been completed. Feel free to check obqss-setup.log."
 read -n 1 -s -r -p "Press any key to continue..."

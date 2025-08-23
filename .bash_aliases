@@ -1,0 +1,2 @@
+alias apt="apt-fast"
+alias apt-get="apt-fast"
