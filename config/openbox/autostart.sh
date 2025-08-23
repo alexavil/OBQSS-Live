@@ -1,4 +1,3 @@
-apt-smart -a &
 sudo apt update &
 sudo apt upgrade -y &
 lxpolkit &
